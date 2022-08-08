@@ -11,8 +11,10 @@
     require_once "../config.php";
     require_once "../utils/statusCodes.php";
     require_once "../utils/sessions.php";
+    require_once "../utils/httpRequest.php";
     require_once "../utils/render.php";
     require_once "../routing/routes.class.php";
+
 
     error_reporting(E_ALL ^ E_NOTICE);  
 

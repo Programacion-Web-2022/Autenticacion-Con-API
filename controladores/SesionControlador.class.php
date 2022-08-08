@@ -3,10 +3,7 @@
 
     class SesionControlador {
         public static function IniciarSesion($context){
-            $u = new UsuarioModelo();
-            $u -> Nombre = $context['post']['usuario'];
-            $u -> Password = $context['post']['password'];
-            if($u -> Autenticar($u -> Nombre, $u -> Password)){
+            if(self::autenticar($context['post']['usuario'],$context['post']['password']) === "true"){
                 SessionCreate("autenticado",true);
                 SessionCreate("nombreUsuario", $u -> Nombre);
                 header("Location: /");
@@ -18,6 +15,19 @@
         public static function CerrarSesion($context){
             session_destroy();
             header("Location:/login");
+        }
+
+        private static function autenticar($nombreUsuario,$password){
+            $parametros = [
+                "usuario" => $nombreUsuario,
+                "password" => $password
+            ];
+
+            $resultado = HttpRequest(API_AUTH_URL,"post",$parametros);
+            return $resultado['Resultado'];
+            
+        
+            
         }
 
        
